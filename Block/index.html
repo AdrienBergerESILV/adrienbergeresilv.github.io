@@ -10,116 +10,117 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Theme CSS -->
-  <link href="../default.css" rel="stylesheet">
+  <link href="../default.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="../fonts.css" rel="stylesheet" type="text/css" media="all" />
 
   <!-- Nottario CSS -->
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <!-- Custom Fonts -->
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <![endif]-->
 
-<style>
-body {
-  background: white;
-}
-h1 {
-  font-family: 'Questrial', sans-serif;
-  line-height: 1.5;
-  font-variant: normal;
-  font-weight: bold;
-  text-transform: none;
-}
-</style>
+    <style>
+    body {
+      background: white;
+    }
+    h1 {
+      font-family: 'Questrial', sans-serif;
+      line-height: 1.5;
+      font-variant: normal;
+      font-weight: bold;
+      text-transform: none;
+    }
+  </style>
 
 </head>
 
 <body>
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-        	<span><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/60/Logo_ESILV.svg/320px-Logo_ESILV.svg.png"/></span>
-			<h1><a href="#">Adrien Berger</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li><a href="../index.html" accesskey="1" title="">Accueil</a></li>
-				<li><a href="" accesskey="2" title="">TP Blockchain 4A</a></li>
-				<li><a href="../explorateur5A/index.html" accesskey="3" title="">Explorateur 5A</a></li>
-				<li><a href="../ICO/index.html" accesskey="4" title="">ICO - ABC Eth</a></li>
-				<li class="active"><a href="../Block/index.html" accesskey="5" title="">Blockizor</a></li>
-			</ul>
-		</div>
-	</div>
+  <div id="header-wrapper">
+   <div id="header" class="container">
+    <div id="logo">
+     <span><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/60/Logo_ESILV.svg/320px-Logo_ESILV.svg.png"/></span>
+     <h1><a href="#">Adrien Berger</a></h1>
+   </div>
+   <div id="menu">
+     <ul>
+      <li><a href="../index.html" accesskey="1" title="">Accueil</a></li>
+      <li><a href="" accesskey="2" title="">TP Blockchain 4A</a></li>
+      <li><a href="../explorateur5A/index.html" accesskey="3" title="">Explorateur 5A</a></li>
+      <li><a href="../ICO/index.html" accesskey="4" title="">ICO - ABC Eth</a></li>
+      <li class="active"><a href="../Block/index.html" accesskey="5" title="">Blockizor</a></li>
+    </ul>
+  </div>
+</div>
 </div>
 <div id ="app">
-   <div v-if="!upload_visible">
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <div class="container" id="maincontent" tabindex="-1" style="display:flex; justify-content: center;">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="intro-text">
-                     <span class="skills">Connectez vous à MetaMask</span>
-                  </div>
-                  <div>
-                    <button type="button" class="btn btn-primary btn-lg buttonspace" v-on:click="display_upload">Enregistrer un texte !</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-</div>
-  <section id = "upload" v-if="upload_visible" v-cloak>
-     <div class="container">
-       <div class="row">
-         <div class="col-lg-12 text-center">
-           <div v-if="web3Missing">
-             <p>
-                Merci d'installer l'extension <a href="https://metamask.io/" target="_blank">Metamask</a> pour Google Chrome ou Firefox pour utiliser Blockizor
-             </p>
-           </div>
-           <div v-if="!web3Missing">
-             <div v-if="!hash">
-               <h2>Drag and drop a file into the dropzone</h2>
-               <hr class="star-light">
-             </div> 
-             <div v-bind:class="{ dragging: dragging }" v-if="!hash" id="drop_zone" ondrop="drop_handler(event);" ondragover="allowDrop(event)" ondragleave="dragout(event)">
-               <strong>Drop Zone ...</strong>
-             </div>
-             <div v-if="hash"> 
-               <h2>Détails du fichier</h2>
-               <hr class="star-light">
-               <table class="table">
-                 <tr><th>Nom</th><td>{{ name }}<span v-if="name.length==32">...</span></td></tr>
-                 <tr><th>Type de fichier</th><td>{{ type }}<span v-if="name.length==32">...</span></td></tr>
-                 <tr><th>Taille</th><td>{{ size }} bytes</td></tr>
-                 <tr><th>Dernière modification</th><td>{{ lastModified }}</td></tr>
-                 <tr><th>Hash</th><td>{{ hash }}</td></tr>
-               </table>
-             </div>
-             <div class="buttonspace" v-if="!animate">
-               <button type="button" class="btn btn-primary btn-lg" :disabled="!hash || !name || hash.length!=66" v-on:click="create_contract">Enregistrer</button>
-               <button type="button" class="btn btn-danger btn-lg"  v-on:click="cancel_upload">Annuler</button>
-             </div>
-           </div>
-           <div v-if="animate">
-             <p v-if="!error"><img src="img/animation.gif" /></p>
-             <p v-if="!error"> Merci d'attendre que le contrat soit stocké dans la blockchain Ethereum. 
-               Cela peut prendre jusqu'à une minute. Lorsque cela sera fait, vous serez redigié vers la page de confirmation.</p> 
-             <p><a v-bind:href="etherscanLink" target="_new">Transaction Blockchain : {{ tx }}</a></p>
-             <p v-if="error">Une erreur est survenue. L'erreur est : "{{ error }}".</p>
-           </div>
-         </div>
+ <div v-if="!upload_visible">
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <div class="container" id="maincontent" tabindex="-1" style="display:flex; justify-content: center;">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="intro-text">
+         <span class="skills">Connectez vous à MetaMask</span>
        </div>
+       <div>
+        <button type="button" class="btn btn-primary btn-lg buttonspace" v-on:click="display_upload">Enregistrer un texte !</button>
+      </div>
     </div>
-  </section>
+  </div>
+</div>
+</div>
+<section id = "upload" v-if="upload_visible" v-cloak>
+ <div class="container">
+   <div class="row">
+     <div class="col-lg-12 text-center">
+       <div v-if="web3Missing">
+         <p>
+          Merci d'installer l'extension <a href="https://metamask.io/" target="_blank">Metamask</a> pour Google Chrome ou Firefox pour utiliser Blockizor
+        </p>
+      </div>
+      <div v-if="!web3Missing">
+       <div v-if="!hash">
+         <h2>Drag and drop a file into the dropzone</h2>
+         <hr class="star-light">
+       </div> 
+       <div v-bind:class="{ dragging: dragging }" v-if="!hash" id="drop_zone" ondrop="drop_handler(event);" ondragover="allowDrop(event)" ondragleave="dragout(event)">
+         <strong>Drop Zone ...</strong>
+       </div>
+       <div v-if="hash"> 
+         <h2>Détails du fichier</h2>
+         <hr class="star-light">
+         <table class="table">
+           <tr><th>Nom</th><td>{{ name }}<span v-if="name.length==32">...</span></td></tr>
+           <tr><th>Type de fichier</th><td>{{ type }}<span v-if="name.length==32">...</span></td></tr>
+           <tr><th>Taille</th><td>{{ size }} bytes</td></tr>
+           <tr><th>Dernière modification</th><td>{{ lastModified }}</td></tr>
+           <tr><th>Hash</th><td>{{ hash }}</td></tr>
+         </table>
+       </div>
+       <div class="buttonspace" v-if="!animate">
+         <button type="button" class="btn btn-primary btn-lg" :disabled="!hash || !name || hash.length!=66" v-on:click="create_contract">Enregistrer</button>
+         <button type="button" class="btn btn-danger btn-lg"  v-on:click="cancel_upload">Annuler</button>
+       </div>
+     </div>
+     <div v-if="animate">
+       <p v-if="!error"><img src="img/animation.gif" /></p>
+       <p v-if="!error"> Merci d'attendre que le contrat soit stocké dans la blockchain Ethereum. 
+       Cela peut prendre jusqu'à une minute. Lorsque cela sera fait, vous serez redigié vers la page de confirmation.</p> 
+       <p><a v-bind:href="etherscanLink" target="_new">Transaction Blockchain : {{ tx }}</a></p>
+       <p v-if="error">Une erreur est survenue. L'erreur est : "{{ error }}".</p>
+     </div>
+   </div>
+ </div>
+</div>
+</section>
 </div>
 
 <p>&nbsp;</p>
@@ -149,13 +150,13 @@ h1 {
     <li><a href="https://www.linkedin.com/in/adrien-berger-894621129" class="icon icon-linkedin-sign"><span>LinkedIn</span></a></li>
   </ul>
 </div>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/vue"></script>
-  <script src="js/solidity.js"></script>
-  <script src="js/nottario.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="js/solidity.js"></script>
+<script src="js/nottario.js"></script>
 </body>
 </html>
