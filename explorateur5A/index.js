@@ -9,12 +9,11 @@ $(document).ready(function(){
 				htmlOutput2 += '<td>'+data.hash+'</td>';
 				htmlOutput3 += '<td>'+data.time+'</td><td>'+data.depth+'</td><td>'+data.total+'</td>';
 
-			}
-			$(".results1").html( htmlOutput );
-			$(".results2").html( htmlOutput2 );
-			$(".results3").html( htmlOutput3 );
+				$(".results1").html( htmlOutput );
+				$(".results2").html( htmlOutput2 );
+				$(".results3").html( htmlOutput3 );
 
-		});
+			});
 			
 		});
 	});
